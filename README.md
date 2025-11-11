@@ -1,2 +1,2 @@
-# exercism
-My exercism repo. Languages : C, Rust
+# Exercism
+Repo for my Exercism exercises.
