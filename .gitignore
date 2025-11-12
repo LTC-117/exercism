@@ -1,3 +1,4 @@
 # Gitignore for all my Exercism repos
 
 .exercism/
+build/
