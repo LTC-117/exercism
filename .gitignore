@@ -3,3 +3,4 @@
 .exercism/
 build/
 *.o
+__pycache__/
