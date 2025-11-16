@@ -3,5 +3,6 @@
 .exercism/
 build/
 *.o
+*.out
 __pycache__/
 .asm-lsp.toml
