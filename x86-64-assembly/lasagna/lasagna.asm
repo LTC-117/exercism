@@ -2,6 +2,8 @@
 
 ; Assembler-time constants may be defined using 'equ'
 
+EXPECTED_MINUTES equ 40
+
 section .text
 
 ; You should implement functions in the .text section
@@ -9,26 +11,26 @@ section .text
 ; the global directive makes a function visible to the test files
 global expected_minutes_in_oven
 expected_minutes_in_oven:
-    ; TODO: This function has no arguments
-    ; and must return a number
+    mov     eax, EXPECTED_MINUTES
     ret
 
 global remaining_minutes_in_oven
 remaining_minutes_in_oven:
-    ; TODO: define the 'remaining_minutes_in_oven' function
-    ; This function takes one number as argument and must return a number
+    mov     eax, EXPECTED_MINUTES
+    sub     eax, edi
     ret
 
 global preparation_time_in_minutes
 preparation_time_in_minutes:
-    ; TODO: define the 'preparation_time_in_minutes' function
-    ; This function takes one number as argument and must return a number
+    mov     eax, edi
+    imul    eax, 2
     ret
 
 global elapsed_time_in_minutes
 elapsed_time_in_minutes:
-    ; TODO: define the 'elapsed_time_in_minutes' function
-    ; This function takes two numbers as arguments and must return a number
+    mov     eax, edi
+    imul    eax, 2
+    add     eax, esi
     ret
 
 %ifidn __OUTPUT_FORMAT__,elf64
