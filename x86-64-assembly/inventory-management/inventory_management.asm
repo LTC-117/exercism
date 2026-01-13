@@ -13,43 +13,51 @@ section .text
 ; the global directive makes a function visible to the test files
 global get_box_weight
 get_box_weight:
-    ; This function takes the following parameters:
-    ; - The number of items for the first product in the box, as a 16-bit non-negative integer
-    ; - The weight of each item of the first product, in grams, as a 16-bit non-negative integer
-    ; - The number of items for the second product in the box, as a 16-bit non-negative integer
-    ; - The weight of each item of the second product, in grams, as a 16-bit non-negative integer
-    ; The function must return the total weight of a box, in grams, as a 32-bit non-negative integer
+    movzx edi, di
+    movzx esi, si
+    movzx edx, dx
+    movzx ecx, cx
+
+    imul edi, esi
+    imul edx, ecx
+
+    add edi, edx
+    mov eax, 500
+    add eax, edi
+
     ret
 
 global max_number_of_boxes
 max_number_of_boxes:
-    ; TODO: define the 'max_number_of_boxes' function
-    ; This function takes the following parameter:
-    ; - The height of the box, in centimeters, as a 8-bit non-negative integer
-    ; The function must return how many boxes can be stacked vertically, as a 8-bit non-negative integer
+    mov ax, TRUCK_HEIGHT
+    div dil
+
     ret
 
 global items_to_be_moved
 items_to_be_moved:
-    ; TODO: define the 'items_to_be_moved' function
-    ; This function takes the following parameters:
-    ; - The number of items still unaccounted for a product, as a 32-bit non-negative integer
-    ; - The number of items for the product in a box, as a 32-bit non-negative integer
-    ; The function must return how many items remain to be moved, after counting those in the box, as a 32-bit integer
+    sub edi, esi
+    mov eax, edi
+
     ret
 
 global calculate_payment
 calculate_payment:
-    ; TODO: define the 'calculate_payment' function
-    ; This function takes the following parameters:
-    ; - The upfront payment, as a 64-bit non-negative integer
-    ; - The total number of boxes moved, as a 32-bit non-negative integer
-    ; - The number of truck trips made, as a 32-bit non-negative integer
-    ; - The number of lost items, as a 32-bit non-negative integer
-    ; - The value of each lost item, as a 64-bit non-negative integer
-    ; - The number of other workers to split the payment/debt with you, as a 8-bit positive integer
-    ; The function must return how much you should be paid, or pay, at the end, as a 64-bit integer (possibly negative)
-    ; Remember that you get your share and also the remainder of the division
+    mov esi, esi
+    imul rsi, rsi, PAY_PER_BOX
+    mov edx, edx
+    imul rax, rdx, PAY_PER_TRUCK_TRIP
+    add rax, rsi
+    sub rax, rdi
+    mov ecx, ecx
+    imul rcx, r8
+    sub rax, rcx
+    movzx r9, r9b
+    inc r9
+    cqo
+    idiv r9
+    add rax, rdx
+
     ret
 
 %ifidn __OUTPUT_FORMAT__,elf64
